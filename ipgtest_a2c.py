@@ -638,9 +638,7 @@ class Worker(object):
                         }
                         self.batch_rnn_state = sess.run(self.AC.state_out,
                                                         feed_dict=feed_dict)  # update rnn state, run training step
-                        #self.AC.update_global(feed_dict)  # actual training step, update global ACNet
                         buffer_s, buffer_a, buffer_r = [], [], []
-                        #self.AC.pull_global()  # get global parameters to local ACNet
 
                     # update state variables
                     inputs = inputs_
@@ -654,20 +652,10 @@ class Worker(object):
                     t_iter = t_iter_
                     prev_output = output
                     total_step += 1
-                    # pythonapi.ApoClnt_PollAndSleep()  # poll client every now and then
 
             # Run an update step at the end of episode
             if UPDATE_ENDSTEP:
 
-                # v_s_ = 0  # terminal state
-                # buffer_v_target = []
-                # for r in buffer_r[::-1]:  # reverse buffer r
-                #    v_s_ = r + GAMMA * v_s_
-                #    buffer_v_target.append(v_s_)
-                # buffer_v_target.reverse()
-
-                # buffer_s, buffer_a, buffer_v_target = np.vstack(buffer_s), np.vstack(buffer_a), np.vstack(
-                #    buffer_v_target)
                 minibatch = trauma_buffer
                 batch_s = np.asarray([elem[0] for elem in minibatch]).reshape(TRAJECTORY_LENGTH, N_S)
                 batch_a = np.asarray([elem[1] for elem in minibatch]).reshape(TRAJECTORY_LENGTH, N_A)
@@ -804,11 +792,6 @@ if __name__ == "__main__":
     global_episodes = 0  # start from ep 2001
 
     args = get_arguments()      # get arguments
-    #tar_path = LOG_DIR + str(random.randint(0, 99)) + 'ER(mb=' + str(args.batch_size) + ',l='\
-    #                + str(TRAJECTORY_LENGTH) + ')_lstm(units=' + str(args.lstm_units) +\
-    #                ')_b=' +str (args.ent_beta) + '_g=' + str(args.gamma) + '_trauma=' + str(args.trauma) + \
-    #                '_lr=(' + str(args.lr_a) + ',' + str(args.lr_c) + ')_hn=(' + str(args.hn_a) + ',' + str(args.hn_c) \
-    #                + ')_mn=' + str(args.max_norm)
 
     a2c_graph = tf.Graph()
     config = tf.ConfigProto()

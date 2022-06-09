@@ -9,7 +9,7 @@ Trains an A2C policy to control an autonomous vehicle in a highway, vehicle foll
 Clone the repo
 
 ```bash
-git clone https://github.com/sampo-kuutti/e2e-rl-longitudinal-control/.git
+git clone https://github.com/sampo-kuutti/e2e-rl-longitudinal-control
 ```
 
 install requirements:

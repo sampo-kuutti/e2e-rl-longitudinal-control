@@ -48,9 +48,7 @@ class SupervisedModel(object):
         # output layer
         self.W_y = weight_variable([HIDDEN3_UNITS, NUM_OUTPUTS])
         self.b_y = bias_variable([NUM_OUTPUTS])
-        #self.y = tf.tanh(tf.matmul(self.h_fc3, self.W_y), name='y')    # tanh activation function
         self.y = tf.matmul(self.h_fc3, self.W_y) + self.b_y  # no activation function
-        # + self.b_y
 
 
 
